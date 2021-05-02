@@ -5,39 +5,148 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OptimizationDesignSolutions"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Prusevich Aleksey" 
+        Height="480" 
+        Width="800" 
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <StackPanel Width="380" Margin="10">
-                <TextBlock  FontSize="13" FontFamily="Roboto" Height="54" TextWrapping="Wrap">
-                    Кондитерская фабрика производит карамель видов A, B, C, используя три основных вида сырья: сахарный песок, патоку и фруктовое пюре.
-                </TextBlock>
-                <TextBlock FontSize="13" FontFamily="Roboto">
-                    Возможности поставки сырья (не более):
-                </TextBlock>
-                
+            <GroupBox Width="380" Margin="10, 5"  Header="Условие задачи">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="30, 4, 0, 2">
-                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 6, 0">Сахарный песок:</TextBlock>
-                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" Margin="0, 0, 10, 0" HorizontalContentAlignment="Right">800</TextBox>
-                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене $/т.:</TextBlock>
-                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">1220</TextBox>
+                    <TextBlock  FontSize="13" FontFamily="Roboto" Height="54" TextWrapping="Wrap">
+                        Кондитерская фабрика производит карамель видов A, B, C, используя три основных вида сырья: сахарный песок, патоку и фруктовое пюре.
+                    </TextBlock>
+                    <TextBlock FontSize="13" FontFamily="Roboto">
+                        Возможности поставки сырья (не более):
+                    </TextBlock>
+                
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="30, 4, 0, 2">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Сахарный песок :</TextBlock>
+                            <TextBox x:Name="sugarWeightTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">800</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене:</TextBlock>
+                            <TextBox x:Name="sugarPriceTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">1220</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 0, 0" > $/т.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="89, 2, 0, 2">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Патока:</TextBlock>
+                            <TextBox x:Name="molassesWeightTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">600</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене:</TextBlock>
+                            <TextBox x:Name="molassesPriceTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">1500</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 0, 0" > $/т.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="32, 2, 0, 4">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Фруктовое пюре:</TextBlock>
+                            <TextBox x:Name="fruitPureeWeightTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">120</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене:</TextBlock>
+                            <TextBox x:Name="fruitPureePriceTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">2100</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 0, 0" > $/т.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="171, 0, 0, 4">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Прочие расходы:</TextBlock>
+                            <TextBox x:Name="otherExpensesTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">450</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 0, 0" > $</TextBlock>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="87, 2, 0, 2">
-                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Патока:</TextBlock>
-                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" Margin="0, 0, 10, 0" HorizontalContentAlignment="Right">600</TextBox>
-                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене $/т.:</TextBlock>
-                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">1500</TextBox>
+
+                    <StackPanel>
+                        <TextBlock FontSize="13" FontFamily="Roboto">
+                            Расход сырья на производсво тонны карамели:
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="30, 2, 0, 4">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">А - </TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">сахар:</TextBlock>
+                            <TextBox x:Name="a_sugarExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0,8</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">патока:</TextBlock>
+                            <TextBox x:Name="a_molassesExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0,4</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">ф. пюре:</TextBlock>
+                            <TextBox x:Name="a_fruitPureeExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="30, 2, 0, 4">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">B -</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">сахар:</TextBlock>
+                            <TextBox x:Name="b_sugarExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0,5</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">патока:</TextBlock>
+                            <TextBox x:Name="b_molassesExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0,4</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">ф. пюре:</TextBlock>
+                            <TextBox x:Name="b_fruitPureeExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0,1</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="30, 2, 0, 4">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">C -</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">сахар:</TextBlock>
+                            <TextBox x:Name="c_sugarExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0,6</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">патока:</TextBlock>
+                            <TextBox x:Name="c_molassesExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0,3</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">ф. пюре:</TextBlock>
+                            <TextBox x:Name="c_fruitPureeExpenseTB" FontSize="13" FontFamily="Roboto" Width="30" HorizontalContentAlignment="Right">0,1</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="30, 2, 0, 4">
-                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Фруктовое пюре:</TextBlock>
-                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" Margin="0, 0, 10, 0" HorizontalContentAlignment="Right">120</TextBox>
-                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене $/т.:</TextBlock>
-                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">2100</TextBox>
+                
+                    <StackPanel>
+                        <TextBlock FontSize="13" FontFamily="Roboto">
+                            Прибыль от производства тонны карамели:
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="30, 4, 0, 2">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Цена карамели А за:</TextBlock>
+                            <TextBox x:Name="a_priceTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">2040</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >$.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="30, 2, 0, 2">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Цена карамели В за:</TextBlock>
+                            <TextBox x:Name="b_priceTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">1990</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >$.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="30, 2, 0, 4">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Цена карамели С за:</TextBlock>
+                            <TextBox x:Name="c_priceTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">1970</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >$.</TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock FontSize="13" FontFamily="Roboto">
+                            Требуемый объём карамли:
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="30, 4, 0, 2">
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Карамель А:</TextBlock>
+                            <TextBox x:Name="a_requestTB" FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">40</TextBox>
+                            <TextBlock FontSize="13" FontFamily="Roboto" Margin="2, 0, 10, 0" >т.</TextBlock>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
+            </GroupBox>
+            
+            
+            <StackPanel>
+                <GroupBox Margin="10, 5"  Header="Вычисления">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <CheckBox FontSize="13" x:Name="logVisCB" Margin="0,0,140,0">Показывать лог поиска</CheckBox>
+                            <Button x:Name="updateDataBtn" Height="16" Background="Transparent" ToolTip="Обновить данные здачи" Margin="0,0,5,0" Click="updateDataBtn_Click">
+                                <Image Source="ico/updateBtn.png"></Image>
+                            </Button>
+                            <Button x:Name="clearLogBtn" Height="16" Background="Transparent" ToolTip="Очистить лог" Click="clearLogBtn_Click">
+                                <Image Source="ico/deleteQuestion.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        
+                        <Button x:Name="calculateBtn" Click="calculateBtn_Click">Вычислить</Button>
+                        <RichTextBox x:Name="logRTB" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Height="380" Width="350"></RichTextBox>
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
-            <StackPanel></StackPanel>
         </StackPanel>
     </Grid>
 </Window>
