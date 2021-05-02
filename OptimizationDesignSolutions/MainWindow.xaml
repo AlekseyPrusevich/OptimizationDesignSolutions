@@ -1,0 +1,43 @@
+﻿<Window x:Class="OptimizationDesignSolutions.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OptimizationDesignSolutions"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Width="380" Margin="10">
+                <TextBlock  FontSize="13" FontFamily="Roboto" Height="54" TextWrapping="Wrap">
+                    Кондитерская фабрика производит карамель видов A, B, C, используя три основных вида сырья: сахарный песок, патоку и фруктовое пюре.
+                </TextBlock>
+                <TextBlock FontSize="13" FontFamily="Roboto">
+                    Возможности поставки сырья (не более):
+                </TextBlock>
+                
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="30, 4, 0, 2">
+                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 6, 0">Сахарный песок:</TextBlock>
+                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" Margin="0, 0, 10, 0" HorizontalContentAlignment="Right">800</TextBox>
+                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене $/т.:</TextBlock>
+                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">1220</TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="87, 2, 0, 2">
+                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Патока:</TextBlock>
+                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" Margin="0, 0, 10, 0" HorizontalContentAlignment="Right">600</TextBox>
+                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене $/т.:</TextBlock>
+                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">1500</TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="30, 2, 0, 4">
+                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">Фруктовое пюре:</TextBlock>
+                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" Margin="0, 0, 10, 0" HorizontalContentAlignment="Right">120</TextBox>
+                        <TextBlock FontSize="13" FontFamily="Roboto" Margin="0, 0, 4, 0">По цене $/т.:</TextBlock>
+                        <TextBox FontSize="13" FontFamily="Roboto" Width="60" HorizontalContentAlignment="Right">2100</TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel></StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
