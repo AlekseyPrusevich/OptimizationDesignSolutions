@@ -13,3 +13,5 @@ E:\gensec\Documents\GitHub\OptimizationDesignSolutions\OptimizationDesignSolutio
 E:\gensec\Documents\GitHub\OptimizationDesignSolutions\OptimizationDesignSolutions\obj\Debug\OptimizationDesignSolutions.csproj.CoreCompileInputs.cache
 E:\gensec\Documents\GitHub\OptimizationDesignSolutions\OptimizationDesignSolutions\obj\Debug\OptimizationDesignSolutions.exe
 E:\gensec\Documents\GitHub\OptimizationDesignSolutions\OptimizationDesignSolutions\obj\Debug\OptimizationDesignSolutions.pdb
+E:\gensec\Documents\GitHub\OptimizationDesignSolutions\OptimizationDesignSolutions\obj\Debug\MethodHookLeevesWindow.g.cs
+E:\gensec\Documents\GitHub\OptimizationDesignSolutions\OptimizationDesignSolutions\obj\Debug\MethodHookLeevesWindow.baml

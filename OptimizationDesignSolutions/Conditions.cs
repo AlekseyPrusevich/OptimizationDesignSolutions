@@ -7,7 +7,7 @@ using System.Windows.Documents;
 
 namespace OptimizationDesignSolutions
 {
-    class Conditions
+    public class Conditions
     {
         public double sugarWeight { get; set; }
         public double molassesWeight { get; set; }

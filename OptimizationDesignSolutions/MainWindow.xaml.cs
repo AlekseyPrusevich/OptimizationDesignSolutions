@@ -21,19 +21,18 @@ namespace OptimizationDesignSolutions
     public partial class MainWindow : Window
     {
         Conditions conditions = new Conditions();
-
+        MethodGrid methodGrid = new MethodGrid();
+        MethodHookLeevesWindow methodHookLeevesWindow = new MethodHookLeevesWindow();
+        
         Paragraph logParagraph = new Paragraph();
         FlowDocument logFlowDocument = new FlowDocument();
 
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public bool isShowLog = false;
 
         private void calculateBtn_Click(object sender, RoutedEventArgs e)
         {
             try
-            {                
+            {
                 conditions.sugarWeight = Convert.ToDouble(sugarWeightTB.Text);
                 conditions.molassesWeight = Convert.ToDouble(molassesWeightTB.Text);
                 conditions.fruitPureeWeight = Convert.ToDouble(fruitPureeWeightTB.Text);
@@ -66,77 +65,205 @@ namespace OptimizationDesignSolutions
                 MessageBox.Show("Необходимо ввести число", "ODS", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            calculate();
+            if (Convert.ToDouble(a_requestTB.Text) >= 0)
+            {
+                isShowLog = logVisCB.IsChecked == true ? true : false;
+
+                if (MethodGridRB.IsChecked == true)
+                    logRTB.Document = methodGrid.calculate(conditions, isShowLog);
+                if (MethodHookJeevesRB.IsChecked == true)
+                {
+                    methodHookLeevesWindow.Show();
+                    methodHookLeevesWindow.conditions = conditions;
+                    methodHookLeevesWindow.isShowLog = isShowLog;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Запрос карамели А не может быть ниже 0 тонн", "ODS", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        public void calculate()
+        public void hookJeevesReturn(FlowDocument _logFlowDocument)
         {
-            double x1 = conditions.a_request;
-            double x2 = 0;
-            double x3 = 0;
-
-            double sugarWeight = 0;
-            double molassesWeight = 0;
-            double fructoseWeight = 0;
-
-            double fun = 0;
-            double funMAX = 0;
-
-
             logRTB.Document.Blocks.Clear();
+            logRTB.AppendText("1");
+            //logRTB.Document = _logFlowDocument;
+        }
 
-            for (int i = 0; i <= 4000; i++)
-            {
-                for (int j = 0; j <= 4000; j++)
+        /*
+                public void calculate()
                 {
-                    if ((conditions.a_sugarExpense * x1 +      conditions.b_sugarExpense * i +      conditions.c_sugarExpense * j) <= conditions.sugarWeight && 
-                        (conditions.a_molassesExpense * x1 +   conditions.b_molassesExpense * i +   conditions.c_molassesExpense * j) <= conditions.molassesWeight && 
-                        (conditions.a_fruitPureeExpense * x1 + conditions.b_fruitPureeExpense * i + conditions.c_fruitPureeExpense * j) <= conditions.fruitPureeWeight)
+                    double function;
+                    double functionMax = -100000000000;
+                    double functionOld = functionMax;
+                    double x1 = 40, x2 = 0, x3 = 0;
+                    double vx2 = 20, vx3 = 400;
+                    double tochnost = 0.01;
+
+                    double sugarWeight;
+                    double molassesWeight;
+                    double fructoseWeight;
+
+                    bool xflag = true;
+
+                    double[] funArray = new double[4];
+                    double[] arrayx1 = new double[1000];
+                    double[] arrayx2 = new double[1000];
+
+                    if (x1 < 0)
+                        x1 = 0;
+                    if (x2 < 0)
+                        x2 = 0;
+                    if (x3 < 0)
+                        x3 = 0;
+
+                    for (; ; )
                     {
+                        function = calculateFun(x1, x2, x3);
+                        Console.WriteLine("Функция f= " + function);
 
-                        fun = (conditions.a_price - conditions.otherExpenses) * x1 - (conditions.a_sugarExpense * conditions.sugarPrice + conditions.a_molassesExpense * conditions.molassesPrice + conditions.a_fruitPureeExpense * conditions.fruitPureePrice) * x1 +
-                              (conditions.b_price - conditions.otherExpenses) *  i - (conditions.b_sugarExpense * conditions.sugarPrice + conditions.b_molassesExpense * conditions.molassesPrice + conditions.b_fruitPureeExpense * conditions.fruitPureePrice) * i +
-                              (conditions.c_price - conditions.otherExpenses) *  j - (conditions.c_sugarExpense * conditions.sugarPrice + conditions.c_molassesExpense * conditions.molassesPrice + conditions.c_fruitPureeExpense * conditions.fruitPureePrice) * j;
+                        funArray[0] = calculateFun(x1, x2 + vx2, x3);
+                        funArray[1] = calculateFun(x1, x2, x3 + vx3);
+                        funArray[2] = calculateFun(x1, x2 - vx2, x3);
+                        funArray[3] = calculateFun(x1, x2, x3 - vx3);
 
-                        if (fun > funMAX)
+                        arrayx1[0] = x2 + vx2;
+                        arrayx1[1] = x2;
+                        arrayx1[2] = x2 - vx2;
+                        arrayx1[3] = x2;
+
+                        arrayx2[0] = x3;
+                        arrayx2[1] = x3 + vx3;
+                        arrayx2[2] = x3;
+                        arrayx2[3] = x3 - vx3;
+
+                        Console.WriteLine("__________________________________________________________________________________");
+                        for (int i = 0; i < funArray.Length; i++)
                         {
-                            funMAX = fun;
+                            Console.WriteLine("Функция f[{0},{1}] = {2} ", arrayx1[i], arrayx2[i], funArray[i]);
 
-                            x2 = i;
-                            x3 = j;
-
-
-                            if (logVisCB.IsChecked == true)
+                            if (functionMax < funArray[i] && xflag)
                             {
-                                Console.WriteLine("Максимальное значение функции равно {0} при х1 = 40, х2 = {1}, х3 = {2}\n", funMAX, x2, x3);
-                                logParagraph.Inlines.Add(new Run("Fmax = " + funMAX + " при х1 = " + x1 + ", х2 = " + x2 + ", х3 = " + x3 + "\r"));
-                                logFlowDocument.Blocks.Add(logParagraph);
-                                logRTB.Document = logFlowDocument;
+                                functionMax = funArray[i];
+                                x2 = arrayx1[i];
+                                x3 = arrayx2[i];
+                            }
+
+                            if (arrayx1[i] < 0)
+                                x2 = x2 + vx2;
+
+                            if (arrayx2[i] < 0)
+                                x3 = x3 + vx3;
+                        }
+
+                        Console.WriteLine("Функция fmax[{0},{1}] = {2}", x2, x3, functionMax);
+                        //Console.ReadLine();
+
+
+                        sugarWeight = conditions.a_sugarExpense * x1 + conditions.b_sugarExpense * x2 + conditions.c_sugarExpense * x3;
+                        molassesWeight = conditions.a_molassesExpense * x1 + conditions.b_molassesExpense * x2 + conditions.c_molassesExpense * x3;
+                        fructoseWeight = conditions.a_fruitPureeExpense * x1 + conditions.b_fruitPureeExpense * x2 + conditions.c_fruitPureeExpense * x3;
+
+                        if (sugarWeight >= conditions.sugarWeight || molassesWeight >= conditions.molassesWeight || fructoseWeight >= conditions.fruitPureeWeight)
+                        {
+                            x2 = x2 - vx2;
+                            x3 = x3 - vx3;
+                            functionMax = calculateFun(x1, x2, x3);
+                            xflag = false;
+                        }
+
+                        if (sugarWeight <= conditions.sugarWeight && molassesWeight <= conditions.molassesWeight && fructoseWeight <= conditions.fruitPureeWeight)
+                        {
+                            xflag = true;
+
+                            if (functionOld == functionMax)
+                            {
+                                vx2 = vx2 / 2;
+                                vx3 = vx3 / 2;
+
+                                if (vx2 <= tochnost || vx3 <= tochnost)
+                                    break;
                             }
                         }
+
+                        functionOld = functionMax;
                     }
-                }  
-            }
 
-            logRTB.Document = logFlowDocument;
+                    Console.WriteLine("Сахар = " + sugarWeight);
+                    Console.WriteLine("Патока = " + molassesWeight);
+                    Console.WriteLine("Фруктоза = " + fructoseWeight);
+                    Console.ReadLine();
 
-            sugarWeight = conditions.a_sugarExpense * x1 + conditions.b_sugarExpense * x2 + conditions.c_sugarExpense * x3;
-            molassesWeight = conditions.a_molassesExpense * x1 + conditions.b_molassesExpense * x2 + conditions.c_molassesExpense * x3;
-            fructoseWeight = conditions.a_fruitPureeExpense * x1 + conditions.b_fruitPureeExpense * x2 + conditions.c_fruitPureeExpense * x3;
+                    /*
+                    double x1 = conditions.a_request;
+                    double x2 = 0;
+                    double x3 = 0;
 
-            logRTB.AppendText("МЕТОД ПЕРЕБОРА ПО СЕТКЕ\r");
-            logRTB.AppendText("Fmax = " + funMAX + " при х1 = " + x1 + ", х2 = " + x2 + ", х3 = " + x3 + "\r" +
-                    "Масса сахара - " + sugarWeight + " тонн(ы) \r" +
-                    "Масса патоки - " + molassesWeight + "  тонн(ы) \r" +
-                    "Масса фруктозы - " + fructoseWeight + "  тонн(ы)\r");
+                    double sugarWeight = 0;
+                    double molassesWeight = 0;
+                    double fructoseWeight = 0;
 
-            Console.WriteLine("МЕТОД ПЕРЕБОРА ПО СЕТКЕ\n");
-            Console.WriteLine("Максимальное значение функции равно {0} при х1 = 40, х2 = {1}, х3 = {2}\n" +
-                "Масса сахара - {3} тонн(ы) \n" +
-                "Масса патоки - {4} тонн(ы) \n" +
-                "Масса фруктозы - {5} тонн(ы)\n\n", funMAX, x2, x3, sugarWeight, molassesWeight, fructoseWeight);
-        }
+                    double fun = 0;
+                    double funMAX = 0;
 
+
+                    logRTB.Document.Blocks.Clear();
+
+                    for (int i = 0; i <= 4000; i++)
+                    {
+                        for (int j = 0; j <= 4000; j++)
+                        {
+                            if ((conditions.a_sugarExpense * x1 +      conditions.b_sugarExpense * i +      conditions.c_sugarExpense * j) <= conditions.sugarWeight && 
+                                (conditions.a_molassesExpense * x1 +   conditions.b_molassesExpense * i +   conditions.c_molassesExpense * j) <= conditions.molassesWeight && 
+                                (conditions.a_fruitPureeExpense * x1 + conditions.b_fruitPureeExpense * i + conditions.c_fruitPureeExpense * j) <= conditions.fruitPureeWeight)
+                            {
+
+                                fun = (conditions.a_price - conditions.otherExpenses) * x1 - (conditions.a_sugarExpense * conditions.sugarPrice + conditions.a_molassesExpense * conditions.molassesPrice + conditions.a_fruitPureeExpense * conditions.fruitPureePrice) * x1 +
+                                      (conditions.b_price - conditions.otherExpenses) *  i - (conditions.b_sugarExpense * conditions.sugarPrice + conditions.b_molassesExpense * conditions.molassesPrice + conditions.b_fruitPureeExpense * conditions.fruitPureePrice) * i +
+                                      (conditions.c_price - conditions.otherExpenses) *  j - (conditions.c_sugarExpense * conditions.sugarPrice + conditions.c_molassesExpense * conditions.molassesPrice + conditions.c_fruitPureeExpense * conditions.fruitPureePrice) * j;
+
+                                if (fun > funMAX)
+                                {
+                                    funMAX = fun;
+
+                                    x2 = i;
+                                    x3 = j;
+
+
+                                    if (logVisCB.IsChecked == true)
+                                    {
+                                        Console.WriteLine("Максимальное значение функции равно {0} при х1 = 40, х2 = {1}, х3 = {2}\n", funMAX, x2, x3);
+                                        logParagraph.Inlines.Add(new Run("Максимальная прибыль - " + funMAX + "$ при объёмах карамели А = " + x1 + " т., В = " + x2 + " т., С = " + x3 + " т.\r"));
+                                        logFlowDocument.Blocks.Add(logParagraph);
+                                    }
+                                }
+                            }
+                        }  
+                    }   
+
+                    sugarWeight = conditions.a_sugarExpense * x1 + conditions.b_sugarExpense * x2 + conditions.c_sugarExpense * x3;
+                    molassesWeight = conditions.a_molassesExpense * x1 + conditions.b_molassesExpense * x2 + conditions.c_molassesExpense * x3;
+                    fructoseWeight = conditions.a_fruitPureeExpense * x1 + conditions.b_fruitPureeExpense * x2 + conditions.c_fruitPureeExpense * x3;
+
+                    logParagraph.Inlines.Add(new Run("МЕТОД ПЕРЕБОРА ПО СЕТКЕ\r" +
+                        "Максимальная прибыль - " + funMAX + "$ при объёмах карамели А = " + x1 + " т., В = " + x2 + " т., С = " + x3 + " т.\r" +
+                        "Масса сахара - " + sugarWeight + " тонн(ы) \r" +
+                        "Масса патоки - " + molassesWeight + "  тонн(ы) \r" +
+                        "Масса фруктозы - " + fructoseWeight + "  тонн(ы)\r"));
+                    logFlowDocument.Blocks.Add(logParagraph);
+
+                    Console.WriteLine("МЕТОД ПЕРЕБОРА ПО СЕТКЕ\n");
+                    Console.WriteLine("Максимальное значение функции равно {0} при х1 = 40, х2 = {1}, х3 = {2}\n" +
+                        "Масса сахара - {3} тонн(ы) \n" +
+                        "Масса патоки - {4} тонн(ы) \n" +
+                        "Масса фруктозы - {5} тонн(ы)\n\n", funMAX, x2, x3, sugarWeight, molassesWeight, fructoseWeight);
+
+                    logRTB.Document = logFlowDocument;
+
+
+                }
+                    */
         private void updateDataBtn_Click(object sender, RoutedEventArgs e)
         {
             sugarWeightTB.Text = "800";
