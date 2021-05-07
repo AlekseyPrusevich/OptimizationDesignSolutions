@@ -149,10 +149,8 @@ namespace OptimizationDesignSolutions
 
             //logRTB.AppendText("afaggjk");
 
-            TB.AppendText("fahkljs;");
-
             hookJeevesReturn(logFlowDocument);
-            //logRTB.Document = logFlowDocument;
+            logRTB.Document = logFlowDocument;
         }
     }
 }

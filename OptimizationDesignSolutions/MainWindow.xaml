@@ -148,11 +148,7 @@
                         </StackPanel>
                         <RichTextBox x:Name="logRTB" IsReadOnly="True" Margin="5,0" VerticalScrollBarVisibility="Visible" Height="364" Width="630">
                             <FlowDocument>
-                                <Paragraph>
-                                    <InlineUIContainer>
-                                        <TextBox x:Name="TB" Height="98" TextWrapping="Wrap" Text="TextBox" Width="249"/>
-                                    </InlineUIContainer>
-                                </Paragraph>
+                                <Paragraph/>
                             </FlowDocument>
                         </RichTextBox>
                     </StackPanel>

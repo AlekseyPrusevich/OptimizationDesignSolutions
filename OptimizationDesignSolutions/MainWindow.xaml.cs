@@ -86,9 +86,9 @@ namespace OptimizationDesignSolutions
 
         public void hookJeevesReturn(FlowDocument _logFlowDocument)
         {
-            logRTB.Document.Blocks.Clear();
-            logRTB.AppendText("1");
-            //logRTB.Document = _logFlowDocument;
+            //logRTB.Document.Blocks.Clear();
+            //logRTB.AppendText("1");
+            logRTB.Document = _logFlowDocument;
         }
 
         /*
