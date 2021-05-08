@@ -147,8 +147,10 @@
                             </Button>
                         </StackPanel>
                         <RichTextBox x:Name="logRTB" IsReadOnly="True" Margin="5,0" VerticalScrollBarVisibility="Visible" Height="364" Width="630">
-                            <FlowDocument>
-                                <Paragraph/>
+                            <FlowDocument Name="FlowDoc" PageWidth="630">
+                                <Paragraph>
+                                    <Run Text="fggd"/>
+                                </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
                     </StackPanel>

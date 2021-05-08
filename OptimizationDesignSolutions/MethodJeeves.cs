@@ -7,53 +7,54 @@ using System.Windows.Documents;
 
 namespace OptimizationDesignSolutions
 {
-    class Jeeves
+    public class MethodJeeves: MainWindow
     {
-        public double pointOne { get; set; }
+        public double pointOne { get; set; } 
 
-        public double poinSecond { get; set; }
+        public double pointSecond { get; set; } 
 
         public double stepPointOne { get; set; }
 
         public double stepPointSecond { get; set; }
 
-        public double accuracy { get; set; }
+        public double Accuracy { get; set; } 
+        public bool IsShowLog { get; set; }
 
-        public Conditions MyProperty { get; set; }
-
-        public Jeeves()
+        public MethodJeeves()
         {
-            pointOne = 0;
-            poinSecond = 0;
-            stepPointOne = 0;
-            stepPointSecond = 0;
-            accuracy = 0;
+            IsShowLog = false;
         }
 
-        public Jeeves(double _pointOne, double _poinSecond, double _stepPointOne, double _stepPointSecond, double _accuracy)
+        public MethodJeeves(double _pointOne, double _pointSecond, double _stepPointOne, double _stepPointSecond, double _accuracy, bool _isShowLog)
         {
             pointOne = _pointOne;
-            poinSecond = _poinSecond;
+            pointSecond = _pointSecond;
             stepPointOne = _stepPointOne;
-            stepPointSecond = _stepPointSecond;
-            accuracy = _accuracy;
+            stepPointSecond  = _stepPointSecond;
+            Accuracy = _accuracy;
+            IsShowLog = _isShowLog;
         }
 
-        private double calculateFun(Conditions Conditions, double _x1, double _x2, double _x3)
+        Paragraph logParagraph = new Paragraph();
+        FlowDocument logFlowDocument = new FlowDocument();
+
+        private double calculateFun(double _x1, double _x2, double _x3)
         {
             return (Conditions.a_price - Conditions.otherExpenses) * _x1 - (Conditions.a_sugarExpense * Conditions.sugarPrice + Conditions.a_molassesExpense * Conditions.molassesPrice + Conditions.a_fruitPureeExpense * Conditions.fruitPureePrice) * _x1 +
                    (Conditions.b_price - Conditions.otherExpenses) * _x2 - (Conditions.b_sugarExpense * Conditions.sugarPrice + Conditions.b_molassesExpense * Conditions.molassesPrice + Conditions.b_fruitPureeExpense * Conditions.fruitPureePrice) * _x2 +
                    (Conditions.c_price - Conditions.otherExpenses) * _x3 - (Conditions.c_sugarExpense * Conditions.sugarPrice + Conditions.c_molassesExpense * Conditions.molassesPrice + Conditions.c_fruitPureeExpense * Conditions.fruitPureePrice) * _x3;
         }
 
-        public void JeevesMethod(Conditions _conditions, bool _isShowLog)
+        public FlowDocument JeevesCalculation()
         {
-            Conditions Conditions = _conditions;
+            double x1 = Conditions.a_request < 0 ? 0 : Conditions.a_request;
+            double x2 = pointOne < 0 ? 0 : pointOne;
+            double x3 = pointSecond < 0 ? 0 : pointSecond;
 
-            Paragraph logParagraph = new Paragraph();
-            FlowDocument logFlowDocument = new FlowDocument();
+            double vx2 = stepPointOne;
+            double vx3 = stepPointSecond;
 
-            double x1 = Conditions.a_request;
+            double accuracy = Accuracy;
 
             double function;
             double functionMax = -100000000000;
@@ -68,23 +69,16 @@ namespace OptimizationDesignSolutions
             double[] funArray = new double[4];
             double[] arrayx1 = new double[1000];
             double[] arrayx2 = new double[1000];
-
-            if (x1 < 0)
-                x1 = 0;
-            if (x2 < 0)
-                x2 = 0;
-            if (x3 < 0)
-                x3 = 0;
-
-            for (; ; )
+            
+            while(true)
             {
-                function = calculateFun(Conditions, x1, x2, x3);
+                function = calculateFun(x1, x2, x3);
                 Console.WriteLine("Функция f= " + function);
 
-                funArray[0] = calculateFun(Conditions, x1, x2 + vx2, x3);
-                funArray[1] = calculateFun(Conditions, x1, x2, x3 + vx3);
-                funArray[2] = calculateFun(Conditions, x1, x2 - vx2, x3);
-                funArray[3] = calculateFun(Conditions, x1, x2, x3 - vx3);
+                funArray[0] = calculateFun(x1, x2 + vx2, x3);
+                funArray[1] = calculateFun(x1, x2, x3 + vx3);
+                funArray[2] = calculateFun(x1, x2 - vx2, x3);
+                funArray[3] = calculateFun(x1, x2, x3 - vx3);
 
                 arrayx1[0] = x2 + vx2;
                 arrayx1[1] = x2;
@@ -117,15 +111,13 @@ namespace OptimizationDesignSolutions
 
                 Console.WriteLine("Функция fmax[{0},{1}] = {2}", x2, x3, functionMax);
 
-                sugarWeight = Conditions.a_sugarExpense * x1 + Conditions.b_sugarExpense * x2 + Conditions.c_sugarExpense * x3;
-                molassesWeight = Conditions.a_molassesExpense * x1 + Conditions.b_molassesExpense * x2 + Conditions.c_molassesExpense * x3;
-                fructoseWeight = Conditions.a_fruitPureeExpense * x1 + Conditions.b_fruitPureeExpense * x2 + Conditions.c_fruitPureeExpense * x3;
+                Calculation.Calculate(x1, x2, x3, out sugarWeight, out molassesWeight, out fructoseWeight);
 
                 if (sugarWeight >= Conditions.sugarWeight || molassesWeight >= Conditions.molassesWeight || fructoseWeight >= Conditions.fruitPureeWeight)
                 {
                     x2 = x2 - vx2;
                     x3 = x3 - vx3;
-                    functionMax = calculateFun(Conditions, x1, x2, x3);
+                    functionMax = calculateFun(x1, x2, x3);
                     xflag = false;
                 }
 
@@ -151,17 +143,13 @@ namespace OptimizationDesignSolutions
             Console.WriteLine("Фруктоза = " + fructoseWeight);
             Console.ReadLine();
 
-            logParagraph.Inlines.Add(new Run("МЕТОД ХУКФ-ДЖИВСА\r" +
-                    "Максимальная прибыль - " + functionMax + "$ при объёмах производства карамели А = " + x1 + " т., В = " + x2 + " т., С = " + x3 + " т.\r" +
-                    "Масса сахара - " + sugarWeight + " тонн(ы) \r" +
-                    "Масса патоки - " + molassesWeight + "  тонн(ы) \r" +
-                    "Масса фруктозы - " + fructoseWeight + "  тонн(ы)\r"));
-            logFlowDocument.Blocks.Add(logParagraph);
-            logParagraph.Inlines.Add(new Run("прибыль - " + functionMax + "$ при объёмах производства карамели А = " + x1 + " т., В = " + x2 + " т., С = " + x3 + " т.\r"));
-            logFlowDocument.Blocks.Add(logParagraph);
+            if (IsShowLog == false)
+            {
+                return new FlowDocument();
+            }
+            FlowDocument result = Report.GenerateReprot("МЕТОД ХУКФ-ДЖИВСА", functionMax, x1, x2, x3, sugarWeight, molassesWeight, fructoseWeight);
 
-            Result.Returned = true;
-            Result.FlowDocument = logFlowDocument;
+            return result;
         }
     }
 }

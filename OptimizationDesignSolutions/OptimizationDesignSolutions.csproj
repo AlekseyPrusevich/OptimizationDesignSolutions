@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Report.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,7 +64,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Conditions.cs" />
-    <Compile Include="HookJeevesParameters.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -75,10 +75,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MethodGrid.cs" />
-    <Compile Include="MethodHookJeeves.cs" />
     <Compile Include="MethodHookLeevesWindow.xaml.cs">
       <DependentUpon>MethodHookLeevesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MethodJeeves.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
