@@ -38,6 +38,8 @@ namespace OptimizationDesignSolutions
         Paragraph logParagraph = new Paragraph();
         FlowDocument logFlowDocument = new FlowDocument();
 
+        FlowDocument result { get; set; }
+
         private double calculateFun(double _x1, double _x2, double _x3)
         {
             return (Conditions.a_price - Conditions.otherExpenses) * _x1 - (Conditions.a_sugarExpense * Conditions.sugarPrice + Conditions.a_molassesExpense * Conditions.molassesPrice + Conditions.a_fruitPureeExpense * Conditions.fruitPureePrice) * _x1 +
@@ -90,10 +92,19 @@ namespace OptimizationDesignSolutions
                 arrayx2[2] = x3;
                 arrayx2[3] = x3 - vx3;
 
-                Console.WriteLine("__________________________________________________________________________________");
+                if (IsShowLog == true)
+                {
+                    logParagraph.Inlines.Add(new Run("__________________________________________________________________________________\r"));
+                    logFlowDocument.Blocks.Add(logParagraph);
+                }
+
                 for (int i = 0; i < funArray.Length; i++)
                 {
-                    Console.WriteLine("Функция f[{0},{1}] = {2} ", arrayx1[i], arrayx2[i], funArray[i]);
+                    if (IsShowLog == true)
+                    {
+                        logParagraph.Inlines.Add(new Run("Функция f[" + arrayx1[i] + "," + arrayx2[i] + "] = " + funArray[i] + "\r"));
+                        logFlowDocument.Blocks.Add(logParagraph);
+                    }
 
                     if (functionMax < funArray[i] && xflag)
                     {
@@ -109,7 +120,11 @@ namespace OptimizationDesignSolutions
                         x3 = x3 + vx3;
                 }
 
-                Console.WriteLine("Функция fmax[{0},{1}] = {2}", x2, x3, functionMax);
+                if (IsShowLog == true)
+                {
+                    logParagraph.Inlines.Add(new Run("Функция fmax[" + x2 + "," + x3 + "] = " + functionMax + "\r"));
+                    logFlowDocument.Blocks.Add(logParagraph);
+                }
 
                 Calculation.Calculate(x1, x2, x3, out sugarWeight, out molassesWeight, out fructoseWeight);
 
@@ -143,13 +158,21 @@ namespace OptimizationDesignSolutions
             Console.WriteLine("Фруктоза = " + fructoseWeight);
             Console.ReadLine();
 
-            if (IsShowLog == false)
-            {
-                return new FlowDocument();
-            }
-            FlowDocument result = Report.GenerateReprot("МЕТОД ХУКФ-ДЖИВСА", functionMax, x1, x2, x3, sugarWeight, molassesWeight, fructoseWeight);
+            result = Report.GenerateReprot("МЕТОД ХУКФ-ДЖИВСА", functionMax, x1, x2, x3, sugarWeight, molassesWeight, fructoseWeight);
 
-            return result;
+            if (IsShowLog == true)
+            {
+                foreach (var doc in result.Blocks.ToList())
+                {
+                    logFlowDocument.Blocks.Add(doc);
+                }
+
+                return logFlowDocument;
+            }
+            else
+            {
+                return result;
+            }
         }
     }
 }
