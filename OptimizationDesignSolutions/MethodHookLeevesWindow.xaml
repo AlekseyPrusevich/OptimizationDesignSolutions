@@ -12,16 +12,16 @@
             <TextBlock FontSize="13" FontFamily="Roboto">Задайте начальные значения для точек х1 и х2</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="20,5,0,0">
                 <TextBlock FontSize="13" FontFamily="Roboto" Margin="0,0,5,0">x1 = </TextBlock>
-                <TextBox x:Name="pointOneTB" FontSize="13" FontFamily="Roboto" Width="40" HorizontalContentAlignment="Right"  Margin="0,0,10,0">10,5</TextBox>
+                <TextBox x:Name="pointOneTB" FontSize="13" FontFamily="Roboto" Width="40" HorizontalContentAlignment="Right"  Margin="0,0,10,0">0</TextBox>
                 <TextBlock FontSize="13" FontFamily="Roboto" Margin="0,0,5,0">x2 =</TextBlock>
-                <TextBox x:Name="pointSecondTB" FontSize="13" FontFamily="Roboto" Width="40" HorizontalContentAlignment="Right">107,8</TextBox>
+                <TextBox x:Name="pointSecondTB" FontSize="13" FontFamily="Roboto" Width="40" HorizontalContentAlignment="Right">0</TextBox>
             </StackPanel>
             <TextBlock FontSize="13" FontFamily="Roboto">Задайте шаг для осей х и y</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="20,5,0,0">
                 <TextBlock FontSize="13" FontFamily="Roboto" Margin="7,0,5,0">x =</TextBlock>
-                <TextBox x:Name="stepPointOneTB" FontSize="13" FontFamily="Roboto" Width="40" HorizontalContentAlignment="Right"  Margin="0,0,10,0">10</TextBox>
+                <TextBox x:Name="stepPointOneTB" FontSize="13" FontFamily="Roboto" Width="40" HorizontalContentAlignment="Right"  Margin="0,0,10,0">1</TextBox>
                 <TextBlock FontSize="13" FontFamily="Roboto" Margin="7,0,5,0">y =</TextBlock>
-                <TextBox x:Name="stepPointSecondTB" FontSize="13" FontFamily="Roboto" Width="40" HorizontalContentAlignment="Right">0,5</TextBox>
+                <TextBox x:Name="stepPointSecondTB" FontSize="13" FontFamily="Roboto" Width="40" HorizontalContentAlignment="Right">1</TextBox>
             </StackPanel>
             <TextBlock FontSize="13" FontFamily="Roboto">Задайте точность исследования</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="20,5,0,0">

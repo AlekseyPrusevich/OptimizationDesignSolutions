@@ -8,7 +8,7 @@
         Title="Prusevich Aleksey" 
         Height="480" 
         Width="1060" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Closed="Window_Closed">
     <Grid>
         <StackPanel Orientation="Horizontal">
             <GroupBox Width="380" Margin="5"  Header="Условие задачи">
@@ -149,7 +149,7 @@
                         <RichTextBox x:Name="logRTB" IsReadOnly="True" Margin="5,0" VerticalScrollBarVisibility="Visible" Height="364" Width="630">
                             <FlowDocument Name="FlowDoc" PageWidth="630">
                                 <Paragraph>
-                                    <Run Text="fggd"/>
+                                    <Run Text=""/>
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>

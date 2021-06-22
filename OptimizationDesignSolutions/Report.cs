@@ -33,7 +33,6 @@ namespace OptimizationDesignSolutions
             sugarWeight = Conditions.a_sugarExpense * x1 + Conditions.b_sugarExpense * x2 + Conditions.c_sugarExpense * x3;
             molassesWeight = Conditions.a_molassesExpense * x1 + Conditions.b_molassesExpense * x2 + Conditions.c_molassesExpense * x3;
             fructoseWeight = Conditions.a_fruitPureeExpense * x1 + Conditions.b_fruitPureeExpense * x2 + Conditions.c_fruitPureeExpense * x3;
-
         }
     }
 }

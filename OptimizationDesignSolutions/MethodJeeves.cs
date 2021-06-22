@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Documents;
 
 namespace OptimizationDesignSolutions
@@ -49,6 +47,9 @@ namespace OptimizationDesignSolutions
 
         public FlowDocument JeevesCalculation()
         {
+            Stopwatch SW = new Stopwatch();
+            SW.Start();
+
             double x1 = Conditions.a_request < 0 ? 0 : Conditions.a_request;
             double x2 = pointOne < 0 ? 0 : pointOne;
             double x3 = pointSecond < 0 ? 0 : pointSecond;
@@ -71,11 +72,12 @@ namespace OptimizationDesignSolutions
             double[] funArray = new double[4];
             double[] arrayx1 = new double[1000];
             double[] arrayx2 = new double[1000];
+
+            int itor = 0;
             
             while(true)
             {
                 function = calculateFun(x1, x2, x3);
-                Console.WriteLine("Функция f= " + function);
 
                 funArray[0] = calculateFun(x1, x2 + vx2, x3);
                 funArray[1] = calculateFun(x1, x2, x3 + vx3);
@@ -149,14 +151,13 @@ namespace OptimizationDesignSolutions
                             break;
                     }
                 }
-
                 functionOld = functionMax;
+                itor++;
             }
 
-            Console.WriteLine("Сахар = " + sugarWeight);
-            Console.WriteLine("Патока = " + molassesWeight);
-            Console.WriteLine("Фруктоза = " + fructoseWeight);
-            Console.ReadLine();
+            SW.Stop();
+            Console.WriteLine(Convert.ToString(SW.ElapsedTicks));
+            Console.WriteLine(itor);
 
             result = Report.GenerateReprot("МЕТОД ХУКФ-ДЖИВСА", functionMax, x1, x2, x3, sugarWeight, molassesWeight, fructoseWeight);
 
@@ -166,7 +167,6 @@ namespace OptimizationDesignSolutions
                 {
                     logFlowDocument.Blocks.Add(doc);
                 }
-
                 return logFlowDocument;
             }
             else
