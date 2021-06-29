@@ -19,6 +19,8 @@ namespace OptimizationDesignSolutions
             IsShowLog = _isShowLog;
         }
 
+        Stopwatch SW = new Stopwatch();
+
         double max_b_sugar;
         double max_b_molasses;
         double max_b_fruitPuree;
@@ -46,7 +48,7 @@ namespace OptimizationDesignSolutions
 
             DoCalculation(ref x1, ref x2, ref x3, ref fun, ref funMAX, ref sugarWeight, ref molassesWeight, ref fructoseWeight);
 
-            result = Report.GenerateReprot("МЕТОД ПЕРЕБОРА ПО СЕТКЕ", funMAX, x1, x2, x3, sugarWeight, molassesWeight, fructoseWeight);
+            result = Report.GenerateReprot("МЕТОД ПЕРЕБОРА ПО СЕТКЕ", funMAX, x1, x2, x3, sugarWeight, molassesWeight, fructoseWeight, Convert.ToString(SW.ElapsedTicks), itor-1);
 
             if (IsShowLog == true)
             {
@@ -67,7 +69,6 @@ namespace OptimizationDesignSolutions
                                    ref double fun, ref double funMAX, 
                                    ref double sugarWeight, ref double molassesWeight, ref double fructoseWeight)
         {
-            Stopwatch SW = new Stopwatch();
             SW.Start();
 
             max_b_sugar = Conditions.sugarWeight / Conditions.b_sugarExpense;
@@ -134,6 +135,7 @@ namespace OptimizationDesignSolutions
 
             SW.Stop();
             Console.WriteLine(Convert.ToString(SW.ElapsedTicks));
+            Console.WriteLine(Convert.ToString(SW.ElapsedMilliseconds));
             Console.WriteLine(itor);
 
             Calculation.Calculate(x1, x2, x3, out sugarWeight, out molassesWeight, out fructoseWeight);

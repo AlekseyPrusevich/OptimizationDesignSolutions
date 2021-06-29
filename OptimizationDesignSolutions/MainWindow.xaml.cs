@@ -31,7 +31,6 @@ namespace OptimizationDesignSolutions
 
         private void calculateBtn_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 Conditions.sugarWeight = Convert.ToDouble(sugarWeightTB.Text);
@@ -87,12 +86,6 @@ namespace OptimizationDesignSolutions
             {
                 MessageBox.Show("Запрос карамели А не может быть ниже 0 тонн", "ODS", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-        }
-
-        public void GetChildResult(FlowDocument flowDocument)
-        {
-            
         }
 
         private void updateDataBtn_Click(object sender, RoutedEventArgs e)

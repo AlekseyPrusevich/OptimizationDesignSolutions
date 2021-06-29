@@ -157,9 +157,10 @@ namespace OptimizationDesignSolutions
 
             SW.Stop();
             Console.WriteLine(Convert.ToString(SW.ElapsedTicks));
+            Console.WriteLine(Convert.ToString(SW.ElapsedMilliseconds));
             Console.WriteLine(itor);
 
-            result = Report.GenerateReprot("МЕТОД ХУКФ-ДЖИВСА", functionMax, x1, x2, x3, sugarWeight, molassesWeight, fructoseWeight);
+            result = Report.GenerateReprot("МЕТОД ХУКФ-ДЖИВСА", functionMax, x1, x2, x3, sugarWeight, molassesWeight, fructoseWeight, Convert.ToString(SW.ElapsedTicks), itor);
 
             if (IsShowLog == true)
             {

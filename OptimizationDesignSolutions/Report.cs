@@ -10,7 +10,7 @@ namespace OptimizationDesignSolutions
     static class Report
     {
         
-        public static FlowDocument GenerateReprot(string name, double funMAX, double x1, double x2, double x3, double sugarWeight, double molassesWeight, double fructoseWeight)
+        public static FlowDocument GenerateReprot(string name, double funMAX, double x1, double x2, double x3, double sugarWeight, double molassesWeight, double fructoseWeight, string timer, int itor)
         {
             Paragraph logParagraph = new Paragraph();
             FlowDocument logFlowDocument = new FlowDocument();
@@ -19,7 +19,9 @@ namespace OptimizationDesignSolutions
                 "Максимальная прибыль - " + funMAX + "$ при объёмах производства карамели А = " + x1 + " т., В = " + x2 + " т., С = " + x3 + " т.\r" +
                 "Масса сахара - " + sugarWeight + " тонн(ы) \r" +
                 "Масса патоки - " + molassesWeight + "  тонн(ы) \r" +
-                "Масса фруктозы - " + fructoseWeight + "  тонн(ы)\r"));
+                "Масса фруктозы - " + fructoseWeight + "  тонн(ы)\r\r" + 
+                "Количество итераций алгоритма - " + itor + "\r" + 
+                "Время выполнения алгоритма - " + timer + " тактов (" + (Convert.ToDouble(timer)/10000).ToString() + " милисекунд(ы))"));
             logFlowDocument.Blocks.Add(logParagraph);
 
             return logFlowDocument;
